@@ -11,7 +11,7 @@ $ npm install --save-dev request-ntlm
 ## Usage
 
 ```javascript
-var ntlm = require('request-ntlm');
+var ntlm = require('icg-request-ntlm');
 
 var opts = {
   username: 'username',

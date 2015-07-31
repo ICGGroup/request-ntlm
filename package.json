@@ -1,20 +1,26 @@
 {
-  "name": "request-ntlm",
-  "version": "0.0.6",
+  "name": "icg-request-ntlm",
+  "version": "0.1.1",
   "description": "NTLM auth for NodeJS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "https://github.com/colynb/request-ntlm",
-  "author": {
-    "name": "Colyn Brown",
-    "email": "clbrown@godaddy.com"
-  },
-  "license": "ISC",
+  "contributors": [
+    {
+      "name": "Colyn Brown",
+      "email": "clbrown@godaddy.com"
+    },
+    {
+      "name": "Jason Douglas",
+      "email": "jdouglas@icgconsulting.com"
+    }
+  ],
+  "license": "",
   "dependencies": {
-    "agentkeepalive": "^0.2.2",
-    "async": "^0.7.0",
+    "agentkeepalive": "^2.0.2",
+    "async": "^0.9.0",
     "lodash": "^2.4.1",
     "request": "^2.34.0"
   }

@@ -1,15 +1,25 @@
 var async = require('async');
 var request = require('request');
 var ntlm = require('./lib/ntlm');
-var HttpsAgent = require('agentkeepalive').HttpsAgent;
+var Agent = require('agentkeepalive');
 var _ = require('lodash');
+var url = require('url');
+
 
 var makeRequest = function(method, options, params, callback) {
+  var keepaliveAgent;
+  var ntlmOpts = _.clone(options, true);
 
-  var keepaliveAgent = new HttpsAgent();
+  //Remove the options that conflict with the request.
+  options.domain = '';
+  options.workstation = '';
 
-  if (!options.workstation) options.workstation = '';
-  if (!options.domain) options.domain = '';
+  pUrl = url.parse(options.url);
+  if(pUrl.protocol==='https'){
+    keepaliveAgent = new Agent.HttpsAgent();
+  } else {
+    keepaliveAgent = new Agent();
+  }
 
   function startAuth($) {
     var type1msg = ntlm.createType1Message(options);
@@ -27,7 +37,7 @@ var makeRequest = function(method, options, params, callback) {
       return $(new Error('www-authenticate not found on response of second request'));
 
     var type2msg = ntlm.parseType2Message(res.headers['www-authenticate']);
-    var type3msg = ntlm.createType3Message(type2msg, options);
+    var type3msg = ntlm.createType3Message(type2msg, ntlmOpts);
     options.method = method;
     options.headers = {
       'Connection': 'keep-alive',
